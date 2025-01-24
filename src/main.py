@@ -54,7 +54,7 @@ def get_rvc_model(voice_model):
             return os.path.join(model_dir, file)
     raise FileNotFoundError(f"No .pth file found in RVC model directory: {model_dir}")
 
-def voice_conversion(input_audio, rvc_model, pitch=0, f0_method='rmvpe', index_rate=0.5, filter_radius=3, rms_mix_rate=0.25, protect=0.33, output_dir):
+def voice_conversion(input_audio, rvc_model, pitch=0, f0_method='rmvpe', index_rate=0.5, filter_radius=3, rms_mix_rate=0.25, protect=0.33, output_dir="./"):
     try:
         hubert_model = load_hubert(device, is_half, os.path.join(rvc_models_dir, "hubert_base.pt"))
         model_path = get_rvc_model(rvc_model)
