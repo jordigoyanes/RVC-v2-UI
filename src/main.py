@@ -9,7 +9,6 @@ from rvc import rvc_infer, load_hubert, get_vc, Config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 rvc_models_dir = os.path.join(BASE_DIR, 'rvc_models')
-output_dir = os.path.join(BASE_DIR, 'voice_output')
 
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 is_half = False if device == "cpu" else True
@@ -55,7 +54,7 @@ def get_rvc_model(voice_model):
             return os.path.join(model_dir, file)
     raise FileNotFoundError(f"No .pth file found in RVC model directory: {model_dir}")
 
-def voice_conversion(input_audio, rvc_model, pitch=0, f0_method='rmvpe', index_rate=0.5, filter_radius=3, rms_mix_rate=0.25, protect=0.33):
+def voice_conversion(input_audio, rvc_model, pitch=0, f0_method='rmvpe', index_rate=0.5, filter_radius=3, rms_mix_rate=0.25, protect=0.33, output_dir):
     try:
         hubert_model = load_hubert(device, is_half, os.path.join(rvc_models_dir, "hubert_base.pt"))
         model_path = get_rvc_model(rvc_model)
